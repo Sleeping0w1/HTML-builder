@@ -4,13 +4,16 @@ const path = require('path');
 const copyFolderPath = path.join(__dirname, 'files-copy');
 const folderPath = path.join(__dirname, 'files');
 
-fsPromises.mkdir(copyFolderPath, { recursive: true }).then(
-  fsPromises.readdir(folderPath).then((files) => {
-    files.forEach((file) => {
-      fsPromises.copyFile(
-        path.join(folderPath, file),
-        path.join(copyFolderPath, file),
-      );
-    });
-  }),
-);
+async function copyDir(folder, copyFolder) {
+  fsPromises.mkdir(copyFolder, { recursive: true }).then(
+    fsPromises.readdir(folder).then((files) => {
+      files.forEach((file) => {
+        fsPromises.copyFile(
+          path.join(folder, file),
+          path.join(copyFolder, file),
+        );
+      });
+    }),
+  );  
+}
+fsPromises.rm(copyFolderPath, {recursive: true, force: true}).then(() => copyDir(folderPath, copyFolderPath));

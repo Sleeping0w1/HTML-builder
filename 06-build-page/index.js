@@ -76,5 +76,5 @@ fsPromises.mkdir(projectPath, { recursive: true }).then(() => {
   // Copies the assets folder into project-dist/assets
   const copyFolderPath = path.join(projectPath, 'assets');
   const folderPath = path.join(__dirname, 'assets');
-  copyFolder(folderPath, copyFolderPath);
+  fsPromises.rm(copyFolderPath, {recursive: true, force: true}).then(() => copyFolder(folderPath, copyFolderPath));
 });
