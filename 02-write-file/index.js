@@ -12,3 +12,4 @@ readline.on('line', (str) => {
 });
 readline.on('error', (err) => readline.write(err.message));
 process.on('exit', (code) => console.log(`Process to exit with code ${code}`));
+console.log('Enter the text:');
